@@ -1,11 +1,11 @@
 package model;
 
 public class Aeropuerto {
-	int id;
-	String nombre;
-	int anio,capacidad,id_dir;
-	String imagen;
-	Direccion direccion;
+	private int id;
+	private String nombre;
+	private int anio,capacidad,id_dir;
+	private String imagen;
+	private Direccion direccion;
 	public Aeropuerto(int id, String nombre, int anio, int capacidad, int id_dir, String imagen, Direccion direccion) {
 		super();
 		this.id = id;
@@ -14,7 +14,17 @@ public class Aeropuerto {
 		this.capacidad = capacidad;
 		this.id_dir = id_dir;
 		this.imagen = imagen;
-		this.direccion = direccion;
+		this.setDireccion(direccion);
+	}
+	public Aeropuerto(String nombre, int anio, int capacidad, int id_dir, String imagen, Direccion direccion) {
+		super();
+		this.id = -1;
+		this.nombre = nombre;
+		this.anio = anio;
+		this.capacidad = capacidad;
+		this.id_dir = id_dir;
+		this.imagen = imagen;
+		this.setDireccion(direccion);
 	}
 	public Aeropuerto(Aeropuerto aeropuerto) {
 		super();
@@ -60,6 +70,12 @@ public class Aeropuerto {
 	}
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
+	}
+	public Direccion getDireccion() {
+		return direccion;
+	}
+	public void setDireccion(Direccion direccion) {
+		this.direccion = direccion;
 	}
 	
 }
