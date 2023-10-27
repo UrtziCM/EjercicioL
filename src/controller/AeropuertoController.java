@@ -2,10 +2,18 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import model.Aeropuerto;
 
 public class AeropuertoController {
@@ -69,7 +77,21 @@ public class AeropuertoController {
     
 
     @FXML
-    void anadirAeropuerto(ActionEvent event) {
+    void anadirAeropuertoPublico(ActionEvent event) {
+    	Stage ventana = createGridWindowFromNodes("Aviones - Añadir aeropuerto".toUpperCase(),new Label("Nombre"),new TextField(),
+    			new Label("Pais"),new TextField(),
+    			new Label("Ciudad"),new TextField(),
+    			new Label("Calle"),new TextField(),
+    			new Label("Numero"),new TextField(),
+    			new Label("Año de inauguracion"),new TextField(),
+    			new Label("Capacidad"),new TextField(),
+    			new Label("Financiacion"),new TextField(),
+    			new Label("Numero de trabajadores"),new TextField(),
+    			new Button("Guardar"), new Button("Cancelar"));
+    	ventana.show();
+    }
+    @FXML
+    void anadirAeropuertoPrivado(ActionEvent event) {
     	
     }
 
@@ -85,7 +107,11 @@ public class AeropuertoController {
     }
 
     @FXML
-    void editarAeropuerto(ActionEvent event) {
+    void editarAeropuertoPublico(ActionEvent event) {
+
+    }
+    @FXML
+    void editarAeropuertoPrivado(ActionEvent event) {
 
     }
 
@@ -117,6 +143,25 @@ public class AeropuertoController {
     		tablaAeropuertos.setItems(gestordb.cargarAeropuertosPublicos());
     	}
     	leyendoPublicos = !leyendoPublicos;
+    }
+    private Stage createGridWindowFromNodes(String title,Node... nodes) {
+    	GridPane customGridPane = new GridPane();
+    	int i=0,j = 0;
+    	for (Node n : nodes) {
+    		customGridPane.add(n, i, j);
+    		i++;
+    		if (i == 2) {
+    			i = 0;
+    			j++;
+    		}
+    	}
+
+    	Scene scn = new Scene(customGridPane);
+    	Stage customStage = new Stage();
+    	customStage.setScene(scn);
+    	customStage.setTitle(title);
+    	customStage.setResizable(false);
+    	return customStage;
     }
 
 }
