@@ -99,24 +99,45 @@ public class DBManagerAeropuertos {
 
 	public void addAeropuerto(Aeropuerto newAeropuerto) throws SQLException {
 		conexion = new ConnectionDB();
-		Statement stmt = conexion.getConexion().createStatement();
-		String sql = "INSERT INTO `aeropuertos` (`nombre`, `anio_inauguracion`, `capacidad`, `id_direccion`, `imagen`) "
-				+ "VALUES ('" + newAeropuerto.getNombre() + "'," + " '" + newAeropuerto.getAnio() + "'," + " '"
-				+ newAeropuerto.getCapacidad() + "'," + " '" + newAeropuerto.getId_dir() + "'," + "imagen" + ")";
-		stmt.executeUpdate(sql);
-		stmt.close();
-		String consulta = "SELECT id FROM aeropuertos WHERE nombre = " + newAeropuerto.getNombre();
+		Statement direcStmt = conexion.getConexion().createStatement();
+		String sql = "INSERT INTO `direcciones` (`pais`, `ciudad`, `calle`, `numero`) "
+				+ "VALUES ('" + newAeropuerto.getPais() + "'," + " '" + newAeropuerto.getCiudad() + "'," + " '"
+				+ newAeropuerto.getPais() + "','" + newAeropuerto.getNumero() + "')";
+		direcStmt.executeUpdate(sql);
+		int idDir = 0;
+		String consulta = "SELECT id FROM direcciones WHERE pais = " + newAeropuerto.getPais() + " AND ciudad=" + newAeropuerto.getCiudad() + " AND calle=" + newAeropuerto.getCalle();
 		PreparedStatement pstmt = conexion.getConexion().prepareStatement(consulta);
 		ResultSet rs = pstmt.executeQuery();
+		if (rs.next())
+			idDir = rs.getInt("id");
+		pstmt.close();
+		newAeropuerto.setId_dir(idDir);
+		Statement stmt = conexion.getConexion().createStatement();
+		sql = "INSERT INTO `aeropuertos` (`nombre`, `anio_inauguracion`, `capacidad`, `id_direccion`) "
+				+ "VALUES ('" + newAeropuerto.getNombre() + "'," + " " + newAeropuerto.getAnio() + "," + " "
+				+ newAeropuerto.getCapacidad() + "," + " " + newAeropuerto.getId_dir() + ")";
+		stmt.executeUpdate(sql);
+		consulta = "SELECT id FROM aeropuertos WHERE nombre = " + newAeropuerto.getNombre();
+		pstmt = conexion.getConexion().prepareStatement(consulta);
+		rs = pstmt.executeQuery();
 		int id = -1;
 		if (rs.next())
 			id = rs.getInt("id");
+		pstmt.close();
 		if (newAeropuerto.getFinanciacion() <= 0) {
+			stmt.close();
 			stmt = conexion.getConexion().createStatement();
 			sql = "INSERT INTO `aeropuertos_privados` (`id_aeropuerto`, `numero_socios`)"
-					+ "VALUES ('" + id + "'," + " '" + newAeropuerto.getAnio() + "'," + " '"
-					+ newAeropuerto.getCapacidad() + "'," + " '" + newAeropuerto.getId_dir() + "'," + "imagen" + ")";
+					+ "VALUES (" + id + ", " + newAeropuerto.getSocios() + ")";
 			stmt.executeUpdate(sql);
+			stmt.close();
+		} else {
+			stmt.close();
+			stmt = conexion.getConexion().createStatement();
+			sql = "INSERT INTO `aeropuertos_publicos` (`id_aeropuerto`, `financiacion`, `num_trabajadores`)"
+					+ "VALUES (" + id + ", " + newAeropuerto.getFinanciacion() + ", "+ newAeropuerto.getTrabajadores() + ")";
+			stmt.executeUpdate(sql);
+			stmt.close();
 		}
 		conexion.closeConexion();
 	}
