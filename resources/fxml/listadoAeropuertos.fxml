@@ -24,10 +24,19 @@
          <menus>
             <Menu mnemonicParsing="false" text="Aeropuertos">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#anadirAeropuerto" text="Añadir" />
-                  <MenuItem mnemonicParsing="false" onAction="#editarAeropuerto" text="Editar" />
+                  <Menu mnemonicParsing="false" text="Añadir">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#anadirAeropuertoPublico" text="Publico" />
+                        <MenuItem mnemonicParsing="false" text="Privado" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Editar">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#editarAeropuertoPublico" text="Publico" />
+                        <MenuItem mnemonicParsing="false" onAction="#editarAeropuertoPrivado" text="Privado" />
+                     </items>
+                  </Menu>
                   <MenuItem mnemonicParsing="false" onAction="#borrarAeropuerto" text="Borrar" />
-                  <MenuItem mnemonicParsing="false" onAction="#infoAeropuerto" text="Mostrar informacion" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Aviones">
