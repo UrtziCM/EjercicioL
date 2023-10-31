@@ -104,6 +104,7 @@ public class AeropuertoController {
 					datos[i] = ((TextField) n).getText();
 					i++;
 				}
+			}
 				System.out.println(Arrays.toString(datos));
 				try {
 					gestordb.addAeropuerto(
@@ -115,33 +116,25 @@ public class AeropuertoController {
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
-			}
-			gestordb.cargarAeropuertosPublicos();
+			tablaAeropuertos.setItems(gestordb.cargarAeropuertosPublicos());
 			ventana.close();
 		});
 	}
 
 	@FXML
 	void anadirAeropuertoPrivado(ActionEvent event) {
-
+		
 	}
 
 	@FXML
 	void borrarAeropuerto(ActionEvent event) {
-
+		
+		gestordb.borrarAeropuerto();
 	}
 
 	@FXML
 	void borrarAvion(ActionEvent event) {
-		int i = 0;
-		for (Node n : getAllNodes(ventana.getScene().getRoot())) {
-			System.out.println(n);
-			if (n.getClass() == TextField.class) {
-				datos[i] = ((TextField) n).getText();
-				i++;
-			}
-		}
-		System.out.println(Arrays.toString(datos));
+
 	}
 
 	@FXML
