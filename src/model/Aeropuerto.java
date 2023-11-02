@@ -2,6 +2,8 @@ package model;
 
 import java.util.Objects;
 
+import javax.xml.catalog.Catalog;
+
 public class Aeropuerto {
 	private int id;
 	private String nombre;
@@ -11,7 +13,7 @@ public class Aeropuerto {
 	private int numero;
 	private int trabajadores, socios;
 	
-	double financiacion;
+	private double financiacion;
 
 	public Aeropuerto(int id, String nombre, int anio, int capacidad, int id_dir, String imagen, Direccion direccion,int socios) {
 		super();
@@ -144,7 +146,22 @@ public class Aeropuerto {
 		this.financiacion = financiacion;
 	}
 	
-	
+	@Override
+	public String toString() {
+		String categoria;
+		if (financiacion > 0) {
+			categoria = "Público\nFinanciacion: " + financiacion + "\nNúmero de trabajadores: " + trabajadores;
+		}else {
+			categoria = "Privado\n Numero de socios: " + socios;
+		}
+		return "Nombre: " + nombre + "\n"
+				+ "Pais: " + pais + "\n"
+				+ "Direccion: C\\ " + calle + " " + numero +", " + ciudad + "\n"
+				+ "Año de inauguracion: " + anio + "\n"
+				+ "Capacidad: " + capacidad + "\n"
+				+ "%AVIONES" + "\n"
+				+ categoria;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

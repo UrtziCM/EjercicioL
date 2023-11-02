@@ -26,17 +26,13 @@
               <items>
                   <Menu mnemonicParsing="false" text="Añadir">
                     <items>
-                      <MenuItem mnemonicParsing="false" onAction="#anadirAeropuertoPublico" text="Publico" />
-                        <MenuItem mnemonicParsing="false" text="Privado" />
+                      <MenuItem fx:id="menuItemAnadirPublico" mnemonicParsing="false" onAction="#anadirAeropuertoPublico" text="Publico" />
+                        <MenuItem fx:id="menuItemAnadirPrivado" mnemonicParsing="false" onAction="#anadirAeropuertoPrivado" text="Privado" />
                     </items>
                   </Menu>
-                  <Menu mnemonicParsing="false" text="Editar">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#editarAeropuertoPublico" text="Publico" />
-                        <MenuItem mnemonicParsing="false" onAction="#editarAeropuertoPrivado" text="Privado" />
-                     </items>
-                  </Menu>
-                  <MenuItem mnemonicParsing="false" onAction="#borrarAeropuerto" text="Borrar" />
+                  <MenuItem mnemonicParsing="false" onAction="#editarAeropuerto" text="Editar" />
+                  <MenuItem fx:id="menuItemBorrar" mnemonicParsing="false" onAction="#borrarAeropuerto" text="Borrar" />
+                  <MenuItem mnemonicParsing="false" onAction="#infoAeropuerto" text="MostrarInformacion" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Aviones">
